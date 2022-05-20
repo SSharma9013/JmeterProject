@@ -38,7 +38,7 @@ id,user_id,title,due_on,status
 Please do not forget to add  descriptive comments in your code
 
 Manual Testing Tasks(Write test cases for below scenarios)
-
+----------------------------------------------------------
 5. You are a new customer, and you want to open a credit card account then there are  three conditions: first you will get a 15% discount on your first purchase, second if you are an existing customer and you hold a loyalty card, you get a 10% discount and third if you have a coupon, you can get 20% off today (but it can’t be used with the ‘new customer’ discount).
 
 6. Your application has a search engine, you need to search a word: automobiles. The results are displayed in order of priority, title and number of occurrences of the search word. Write all the test cases to test the search engine and if the results are displayed accordingly.
