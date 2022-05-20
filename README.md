@@ -1,10 +1,13 @@
 # JmeterProject
-**Note from Suraksha**
-Assignment folder holds all the required classes and jmx files which will perform the below mentioned tasks using userdefined library CSVOperations.
+--Note from Suraksha--
+
+AssignmentFolder holds all the required classes and jmx files which will perform the below mentioned tasks using userdefined library CSVOperations.
 And other external libraries are also included which are used in the project. 
 Steps to run thr project 
 Get the Assighmemt.jmx file, the external and user defined (CSVOperations) jar files to a particular location and run the jmeter project. 
 Might need to add Jar CSVOperations.jar to class path from library section in Jmeter. 
+
+Test scenarios for Mannual testcases are in tetcases file inside AssignmentFolder. 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
 JMeter Tasks
@@ -32,3 +35,9 @@ id,user_id,title,due_on,status
   iii. Create new csv with three columns (id,day_of_week,utc_offset) (grab new  values from original ‘due_on’ value), csv name should be  customized_${most_frequent_day_due_day}.csv Note:All above task are expected to be done programmatically. 
 
 Please do not forget to add  descriptive comments in your code
+
+Manual Testing Tasks(Write test cases for below scenarios)
+
+5. You are a new customer, and you want to open a credit card account then there are  three conditions: first you will get a 15% discount on your first purchase, second if you are an existing customer and you hold a loyalty card, you get a 10% discount and third if you have a coupon, you can get 20% off today (but it can’t be used with the ‘new customer’ discount).
+
+6. Your application has a search engine, you need to search a word: automobiles. The results are displayed in order of priority, title and number of occurrences of the search word. Write all the test cases to test the search engine and if the results are displayed accordingly.
