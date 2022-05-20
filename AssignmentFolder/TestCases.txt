@@ -1,0 +1,36 @@
+1. You are a new customer, and you want to open a credit card account then there are three conditions: first you will get a 15% discount on your first purchase, second if you are an existing customer and you hold a loyalty card, you get a 10% discount and third if you have a coupon, you can get 20% off today (but it can’t be used with the ‘new customer’ discount).
+	
+	There are possibly 6 types of Customers they are mentioned below. 
+	• New customers
+	• New customers with coupon
+	• Existing customers with a loyalty card
+	• Existing customers without a loyalty
+	• Existing customers with a loyalty card and Coupon
+	• Existing customers without loyalty card without a coupon
+	
+	There are 4 different discounts customer can avail, they are mentioned below. 
+	• No Discount 
+	• 10%
+	• 15%
+	• 20%
+	• 10%+20%
+	
+	From the above data we can create testcases to validate which customers should get what discounts. 
+	• New customers should get 15% discount only on 1st purchase.
+	• New customers with coupon should get 20% discount only on today's purchase.
+	• Existing customers with a loyalty card only should get 10% discount.
+	• Existing customers without a loyalty card but has a Coupon should get 10% discount.
+	• Existing customers with both loyalty card and Coupon should get 30% discount, 10% for coupon and 20% for loyalty card. 
+	• Existing customers without loyalty card without a coupon will not get any discount.
+
+2. Your application has a search engine, you need to search a word: automobiles. The results are displayed in order of priority, title and number of occurrences of the  search word. Write all the test cases to test the search engine and if the results are displayed accordingly.
+
+	In this particular case we can perform combination of Equivalence & boundary value testing 
+	We do the Partitioning, first, we divide a set of test condition into a partition that we can consider. 
+	And now we perform Boundary Value Analysis then test boundaries between equivalence partitions.
+	
+	As our search engine can yield 100s of search results 
+	We can partition into Page min(1-10) median(50-60) max(90-100) 
+	And perform boundry value testing testing on page (1,2,10,11,50,51,60,61,90,91,99,100) 
+    	and validate that the results are displayed in order of priority, title and number of occurrences of the  search word.
+	
