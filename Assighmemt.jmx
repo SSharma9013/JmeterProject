@@ -8,29 +8,29 @@
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
         <collectionProp name="Arguments.arguments">
-          <elementProp name="URI" elementType="Argument">
-            <stringProp name="Argument.name">URI</stringProp>
+          <elementProp name="URI1" elementType="Argument">
+            <stringProp name="Argument.name">URI1</stringProp>
             <stringProp name="Argument.value">dummyjson.com</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="path" elementType="Argument">
-            <stringProp name="Argument.name">path</stringProp>
+          <elementProp name="path1" elementType="Argument">
+            <stringProp name="Argument.name">path1</stringProp>
             <stringProp name="Argument.value">products</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="URI1" elementType="Argument">
-            <stringProp name="Argument.name">URI1</stringProp>
+          <elementProp name="URI2" elementType="Argument">
+            <stringProp name="Argument.name">URI2</stringProp>
             <stringProp name="Argument.value">gorest.co.in</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="Path1" elementType="Argument">
-            <stringProp name="Argument.name">Path1</stringProp>
+          <elementProp name="Path2" elementType="Argument">
+            <stringProp name="Argument.name">Path2</stringProp>
             <stringProp name="Argument.value">public/v2/todos</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
       </elementProp>
-      <stringProp name="TestPlan.user_define_classpath">.\AddTwoNumners.jar</stringProp>
+      <stringProp name="TestPlan.user_define_classpath">C:\Projects\apache-jmeter-5.4.3\bin\CSVOperations.jar</stringProp>
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="ThreadGroup" enabled="true">
@@ -51,11 +51,11 @@
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">${URI}</stringProp>
+          <stringProp name="HTTPSampler.domain">${URI1}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${path}</stringProp>
+          <stringProp name="HTTPSampler.path">${path1}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -108,11 +108,11 @@
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">${URI1}</stringProp>
+          <stringProp name="HTTPSampler.domain">${URI2}</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${Path1}</stringProp>
+          <stringProp name="HTTPSampler.path">${Path2}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -170,12 +170,40 @@
 //JmeterTest Test = new JmeterTest();
 CSV_Operations Test = new CSV_Operations();
 var ResponseBody;
+//Generating file name semicolon_${File_Creation_Date}.csv
+String newfilename1 = &quot;Semicolon_${__time(dd-MM-YYYY)}.csv&quot;;
+// Generating file name pipes_${File_Creation_Date}.csv
+String newfilename2 = &quot;Pipes_${__time(dd-MM-YYYY)}.csv&quot;;
+String samplerName= &quot;${__samplerName()}&quot;;
+//Generating first_url_response.csv or second_url_response.csv 
+String FileName = samplerName+&quot;_response.csv&quot;;
+//executiing tests for different samplers
+if(samplerName.compareTo(&quot;first_url&quot;) == 0)
+{
+log.info(&quot;${__samplerName()}&quot;);
 ResponseBody = ctx.getPreviousResult().getResponseDataAsString();
 log.info(ResponseBody);
-Test.ConvertJsonToCSV(ResponseBody, FileName, &quot;first_url&quot;);
-log.info(&quot;Title with Maxmimum Percentage: &quot; + Test.SortAndReturntitle(&quot;first_url_response.csv&quot;, 7, 0));
+Test.ConvertJsonToCSV(ResponseBody, FileName, samplerName);
+log.info(&quot;Title with Maxmimum Percentage: &quot; + Test.SortAndReturntitleForMaxPercentage(FileName, 7, 0,samplerName));
 log.info(&quot;Average Percentage: &quot; + Test.FindAverage());
-var newfilename = &quot;semicolon_&quot;+&quot;${__time(DD/mm/YYYY,)}&quot;;
+Test.CSVFileWithNewDelimiter(&apos;;&apos;, newfilename1, &quot;first_url_response.csv&quot;);
+log.info(&quot;File with new delimiter should be created. File Name: &quot; + filename1 );
+}
+else if(samplerName.compareTo(&quot;second_url&quot;) == 0)
+{
+log.info(&quot;${__samplerName()}&quot;);
+ResponseBody = ctx.getPreviousResult().getResponseDataAsString();
+log.info(ResponseBody);
+Test.ConvertJsonToCSV(ResponseBody, FileName, samplerName);
+//2 here is column index of title of second_url_response
+log.info(&quot;Title with Latest Due Date: &quot; + Test.SortAndReturntitleForLatestDueDate(FileName, 2,3, samplerName));
+Test.CSVFileWithNewDelimiterForSecondURL(&apos;|&apos;,newfilename2 ,FileName );
+log.info(&quot;File with new delimiter should be created.  File Name:&quot; + filename2 );
+Test.CreateCustomCSV(FileName);
+log.info(&quot;File with id,day_of_week,utc_offset colums should be created.&quot;);
+}
+else
+log.info(&quot;Invalid Sampler&quot;);
 
 /*
 Test.function4(ResponseBody, &quot;First_url_response.csv&quot;);
